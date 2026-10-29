@@ -1,10 +1,18 @@
 name: Release
 
-# При пуше тега вида v0.1.0 собирает exe для Windows 7 и новее и создаёт релиз с файлами.
+# Собирает exe для Windows 7 и новее и создаёт релиз с файлами.
+# Запуск: пуш тега вида v0.1.0 или вручную (Actions → Release → Run workflow) с указанием версии;
+# при ручном запуске тег создаётся на текущем коммите ветки.
 on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Версия релиза, например v0.1.0"
+        required: true
+        default: "v0.1.0"
 
 permissions:
   contents: write
@@ -12,6 +20,8 @@ permissions:
 jobs:
   windows:
     runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
 
@@ -26,8 +36,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           # В описание релиза попадает только раздел этой версии из CHANGELOG.md.
-          awk -v version="${GITHUB_REF_NAME#v}" '$0 ~ "^## \\[" version "\\]" {f=1; next} /^## /{f=0} f' CHANGELOG.md > release-notes.md
-          gh release create "$GITHUB_REF_NAME" dist/* \
-            --title "Univ-antv $GITHUB_REF_NAME" \
+          awk -v version="${TAG#v}" '$0 ~ "^## \\[" version "\\]" {f=1; next} /^## /{f=0} f' CHANGELOG.md > release-notes.md
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            tag_option=(--target "$GITHUB_SHA")
+          else
+            tag_option=(--verify-tag)
+          fi
+          gh release create "$TAG" dist/* \
+            --title "Univ-antv $TAG" \
             --notes-file release-notes.md \
-            --verify-tag
+            "${tag_option[@]}"
