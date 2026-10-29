@@ -1,0 +1,31 @@
+name: Release
+
+# При пуше тега вида v0.1.0 собирает exe для Windows 7 и новее и создаёт релиз с файлами.
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Установить MinGW
+        run: sudo apt-get update && sudo apt-get install -y gcc-mingw-w64-x86-64 gcc-mingw-w64-i686
+
+      - name: Собрать exe (x64 и x86)
+        run: ./scripts/build-windows.sh
+
+      - name: Опубликовать релиз
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/* \
+            --title "Univ-antv $GITHUB_REF_NAME" \
+            --notes-file CHANGELOG.md \
+            --verify-tag
