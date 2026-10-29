@@ -1,0 +1,20 @@
+Univ-antv
+Copyright (c) 2026 Zaxar1231
+
+Этот проект распространяется по лицензии MIT (см. файл LICENSE).
+
+В проекте использованы идеи и внешние программы со следующими лицензиями.
+
+1. BCUninstaller (Klocman/Bulk-Crap-Uninstaller)
+   Лицензия: Apache License 2.0
+   Ссылка: https://github.com/Klocman/Bulk-Crap-Uninstaller
+   Модуль src/antv/uninstall вдохновлён подходом BCUninstaller: чтение списка программ из реестра,
+   тихое удаление для MSI, Inno Setup и NSIS, поиск остатков после удаления.
+   Код BCUninstaller не копировался: логика написана заново на Python.
+
+2. ClamAV (Cisco Talos / ClamAV project)
+   Лицензия: GNU General Public License v2
+   Ссылка: https://www.clamav.net
+   Univ-antv не включает код ClamAV. Программа запускает установленные утилиты clamscan и freshclam
+   как отдельные процессы и разбирает их текстовый вывод.
+   Базы сигнатур ClamAV не распространяются вместе с Univ-antv: их загружает freshclam.
