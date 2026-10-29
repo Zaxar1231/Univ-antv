@@ -25,7 +25,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # В описание релиза попадает только раздел этой версии из CHANGELOG.md.
+          awk -v version="${GITHUB_REF_NAME#v}" '$0 ~ "^## \\[" version "\\]" {f=1; next} /^## /{f=0} f' CHANGELOG.md > release-notes.md
           gh release create "$GITHUB_REF_NAME" dist/* \
             --title "Univ-antv $GITHUB_REF_NAME" \
-            --notes-file CHANGELOG.md \
+            --notes-file release-notes.md \
             --verify-tag
