@@ -74,10 +74,10 @@ pub fn find_leftover_directories(
     search_roots: &[PathBuf],
 ) -> Vec<PathBuf> {
     let mut found = Vec::new();
-    if let Some(location) = &program.install_location
-        && location.is_dir()
-    {
-        found.push(location.clone());
+    if let Some(location) = &program.install_location {
+        if location.is_dir() {
+            found.push(location.clone());
+        }
     }
 
     let wanted = normalize(&program.name);

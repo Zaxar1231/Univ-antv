@@ -1,0 +1,7 @@
+# Windows-сборки: CRT линкуется статически, поэтому exe не требует Visual C++ Redistributable
+# и не тянет DLL из MinGW. Работает на Windows 7 и новее.
+[target.x86_64-pc-windows-gnu]
+rustflags = ["-C", "target-feature=+crt-static"]
+
+[target.i686-pc-windows-gnu]
+rustflags = ["-C", "target-feature=+crt-static"]

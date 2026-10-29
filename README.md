@@ -20,9 +20,21 @@
 
 Подробный план — в [docs/ROADMAP.md](docs/ROADMAP.md).
 
+## Скачать для Windows
+
+Готовые файлы для Windows 7 и новее — в папке `dist/` после сборки (см. ниже):
+
+- `antv-x64.exe` — 64-битные системы;
+- `antv-x86.exe` — 32-битные системы (старые ПК);
+- `SHA256SUMS.txt` — контрольные суммы для проверки файлов.
+
+Оба exe не требуют установки Visual C++ и других библиотек: среда выполнения включена внутрь файла.
+Для проверки файлов нужен ClamAV (см. ниже).
+
 ## Требования
 
-- Rust 1.85 или новее (для сборки): [rustup.rs](https://rustup.rs)
+- Rust 1.77.2 для сборки под Windows 7 (тот же toolchain собирает и под Windows 10/11).
+  Для обычной сборки под Linux подойдёт новее: [rustup.rs](https://rustup.rs)
 - [ClamAV](https://www.clamav.net) с утилитами `clamscan` и `freshclam` в `PATH`
   или в папке, указанной в переменной `ANTV_CLAMAV_DIR`
 
@@ -32,6 +44,13 @@
 git clone https://github.com/Zaxar1231/Univ-antv.git
 cd Univ-antv
 cargo build --release
+```
+
+Сборка `.exe` для Windows 7 и новее (64- и 32-битная) на Linux:
+
+```bash
+sudo apt install gcc-mingw-w64-x86-64 gcc-mingw-w64-i686
+./scripts/build-windows.sh      # результат — в dist/
 ```
 
 Готовый файл появится в `target/release/antv` (на Windows — `antv.exe`).

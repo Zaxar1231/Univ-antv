@@ -2,7 +2,7 @@
 
 use std::process::Command;
 
-use super::silent::{InstallerKind, silent_arguments, split_command};
+use super::silent::{silent_arguments, split_command, InstallerKind};
 use super::{InstalledProgram, UninstallError};
 
 /// 0 — успех; 1641 и 3010 — успех, но нужна перезагрузка (коды MSI).

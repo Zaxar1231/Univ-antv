@@ -11,15 +11,15 @@ use clap::{Parser, Subcommand};
 use antv::background::BackgroundScanner;
 use antv::clam::{ClamAV, ScanStatus};
 use antv::config::{database_dir, quarantine_dir};
-use antv::executables::{LaunchError, run_checked};
+use antv::executables::{run_checked, LaunchError};
 use antv::quarantine::Quarantine;
 use antv::scanner::scan_paths;
-use antv::uninstall::InstalledProgram;
 use antv::uninstall::engine::{is_success, run_uninstaller};
 use antv::uninstall::leftovers::{
     default_search_roots, default_shortcut_roots, delete_leftovers, find_leftovers,
 };
 use antv::uninstall::registry::{find_registry_leftovers, list_installed_programs};
+use antv::uninstall::InstalledProgram;
 
 const EXIT_CLEAN: u8 = 0;
 const EXIT_INFECTED: u8 = 1;

@@ -12,3 +12,6 @@ logs/
 *.swp
 .DS_Store
 Thumbs.db
+
+# Готовые сборки
+/dist/

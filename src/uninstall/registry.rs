@@ -62,8 +62,8 @@ fn normalized_len(name: &str) -> usize {
 
 #[cfg(windows)]
 pub fn list_installed_programs() -> Result<Vec<InstalledProgram>, UninstallError> {
-    use winreg::RegKey;
     use winreg::enums::{HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE, KEY_READ};
+    use winreg::RegKey;
 
     let sources = [
         (HKEY_LOCAL_MACHINE, "HKLM", UNINSTALL_SUBKEY),
@@ -108,8 +108,8 @@ pub fn list_installed_programs() -> Result<Vec<InstalledProgram>, UninstallError
 /// Ищет ключи `SOFTWARE\<издатель>\<программа>` и `SOFTWARE\<программа>`, которые могли остаться.
 #[cfg(windows)]
 pub fn find_registry_leftovers(name: &str, publisher: &str) -> Vec<String> {
-    use winreg::RegKey;
     use winreg::enums::{HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE, KEY_READ};
+    use winreg::RegKey;
 
     if !is_searchable_name(name) {
         return Vec::new();
@@ -145,8 +145,8 @@ pub fn find_registry_leftovers(_name: &str, _publisher: &str) -> Vec<String> {
 /// Удалять можно только ключи внутри `SOFTWARE`, на два уровня и глубже: сам раздел не трогаем.
 #[cfg(windows)]
 pub fn delete_registry_tree(full_key: &str) -> Result<(), UninstallError> {
-    use winreg::RegKey;
     use winreg::enums::{HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE, KEY_ALL_ACCESS};
+    use winreg::RegKey;
 
     let (hive_name, subkey) = full_key
         .split_once('\\')

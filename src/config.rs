@@ -5,10 +5,10 @@ use std::path::PathBuf;
 
 /// Папка с данными программы: карантин и журналы.
 pub fn data_dir() -> PathBuf {
-    if cfg!(windows)
-        && let Some(program_data) = env::var_os("ProgramData")
-    {
-        return PathBuf::from(program_data).join("antv");
+    if cfg!(windows) {
+        if let Some(program_data) = env::var_os("ProgramData") {
+            return PathBuf::from(program_data).join("antv");
+        }
     }
     let home = env::var_os("HOME")
         .or_else(|| env::var_os("USERPROFILE"))

@@ -3,7 +3,7 @@
 use std::fs;
 use std::path::PathBuf;
 
-use antv::clam::{ClamAV, ScanStatus, find_tool};
+use antv::clam::{find_tool, ClamAV, ScanStatus};
 use antv::config::database_dir;
 
 const EICAR: &[u8] = b"X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*";
