@@ -4,9 +4,12 @@
 
 ## Подготовка окружения
 
+Нужен Rust 1.85 или новее ([rustup.rs](https://rustup.rs)). Для тестов с настоящим движком ClamAV
+установите `clamscan` и задайте `ANTV_DATABASE_DIR`.
+
 ```bash
-python -m pip install -e ".[dev]"
-python -m pytest
+cargo build
+cargo test
 ```
 
 ## Ветки и коммиты
@@ -17,7 +20,11 @@ python -m pytest
 
 ## Перед отправкой изменений
 
-- Тесты проходят: `python -m pytest`.
+- Тесты проходят: `cargo test`.
+- Линтер без предупреждений: `cargo clippy --all-targets`.
+- Код отформатирован: `cargo fmt --check`.
+- Код для Windows собирается: `cargo check --target x86_64-pc-windows-gnu`
+  (после `rustup target add x86_64-pc-windows-gnu`).
 - Новая функция сопровождается тестами.
 - Запись добавлена в `CHANGELOG.md` в раздел `Unreleased`.
 - Если функция есть в плане, отметьте её в `docs/ROADMAP.md`.

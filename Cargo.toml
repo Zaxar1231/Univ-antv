@@ -1,0 +1,23 @@
+[package]
+name = "antv"
+version = "0.1.0"
+edition = "2024"
+description = "Бесплатный антивирус с автоматической проверкой обновлений"
+license = "MIT"
+repository = "https://github.com/Zaxar1231/Univ-antv"
+readme = "README.md"
+authors = ["Zaxar1231"]
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+env_logger = "0.11"
+log = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tempfile = "3"
+thiserror = "2"
+uuid = { version = "1", features = ["v4"] }
+
+[target."cfg(windows)".dependencies]
+winreg = "0.56"

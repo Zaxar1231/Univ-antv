@@ -22,7 +22,7 @@
 
 ## Требования
 
-- Python 3.10 или новее
+- Rust 1.85 или новее (для сборки): [rustup.rs](https://rustup.rs)
 - [ClamAV](https://www.clamav.net) с утилитами `clamscan` и `freshclam` в `PATH`
   или в папке, указанной в переменной `ANTV_CLAMAV_DIR`
 
@@ -31,13 +31,14 @@
 ```bash
 git clone https://github.com/Zaxar1231/Univ-antv.git
 cd Univ-antv
-python -m pip install -e ".[dev]"
+cargo build --release
 ```
 
+Готовый файл появится в `target/release/antv` (на Windows — `antv.exe`).
 Первый запуск баз:
 
 ```bash
-antv update
+./target/release/antv update
 ```
 
 ## Использование
@@ -85,28 +86,32 @@ antv uninstall "Example Tool" --delete-leftovers --yes  # с удалением 
 ## Разработка
 
 ```bash
-python -m pytest
+cargo test                       # все тесты
+cargo clippy --all-targets       # линтер
+cargo fmt --check                # проверка форматирования
 ```
 
-Тесты с движком ClamAV используют базы из `ANTV_DATABASE_DIR`. Без них они пропускаются.
+Сквозной тест на настоящем ClamAV (с тестовым вирусом EICAR) запускается, если заданы
+`ANTV_DATABASE_DIR` и установлен `clamscan`. Без них он пропускается.
 
 Структура проекта:
 
 ```text
 Univ-antv/
-├── src/antv/
-│   ├── cli.py            # команды командной строки
-│   ├── clam.py           # обёртка над clamscan и freshclam
-│   ├── scanner.py        # сбор файлов и проверка
-│   ├── background.py     # фоновая проверка изменений
-│   ├── executables.py    # проверка программ перед запуском
-│   ├── quarantine.py     # карантин
-│   ├── config.py         # пути и переменные окружения
+├── src/
+│   ├── main.rs           # командная строка (clap)
+│   ├── lib.rs            # модули библиотеки
+│   ├── clam.rs           # обёртка над clamscan и freshclam
+│   ├── scanner.rs        # сбор файлов и проверка
+│   ├── background.rs     # фоновая проверка изменений
+│   ├── executables.rs    # проверка программ перед запуском
+│   ├── quarantine.rs     # карантин
+│   ├── config.rs         # пути и переменные окружения
 │   └── uninstall/        # удаление программ и остатков (Windows)
-├── tests/
+├── tests/                # сквозные тесты: ClamAV и бинарник
 ├── docs/ROADMAP.md
 ├── NOTICE                # атрибуция ClamAV и BCUninstaller
-├── pyproject.toml
+├── Cargo.toml
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 └── LICENSE               # MIT

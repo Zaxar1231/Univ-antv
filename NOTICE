@@ -8,9 +8,9 @@ Copyright (c) 2026 Zaxar1231
 1. BCUninstaller (Klocman/Bulk-Crap-Uninstaller)
    Лицензия: Apache License 2.0
    Ссылка: https://github.com/Klocman/Bulk-Crap-Uninstaller
-   Модуль src/antv/uninstall вдохновлён подходом BCUninstaller: чтение списка программ из реестра,
+   Модуль src/uninstall вдохновлён подходом BCUninstaller: чтение списка программ из реестра,
    тихое удаление для MSI, Inno Setup и NSIS, поиск остатков после удаления.
-   Код BCUninstaller не копировался: логика написана заново на Python.
+   Код BCUninstaller не копировался: логика написана заново на Rust.
 
 2. ClamAV (Cisco Talos / ClamAV project)
    Лицензия: GNU General Public License v2

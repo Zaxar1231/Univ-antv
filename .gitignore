@@ -1,22 +1,10 @@
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-.eggs/
-build/
-dist/
+# Rust
+/target/
 
-# Виртуальные окружения
-.venv/
-venv/
-env/
-
-# Инструменты тестирования и линтеры
-.pytest_cache/
-.coverage
-htmlcov/
-.mypy_cache/
-.ruff_cache/
+# Локальные данные антивируса (карантин, журналы, базы) — не коммитить
+quarantine/
+logs/
+*.db
 
 # Редакторы и ОС
 .idea/
@@ -24,8 +12,3 @@ htmlcov/
 *.swp
 .DS_Store
 Thumbs.db
-
-# Локальные данные антивируса (карантин, журналы, базы) — не коммитить
-quarantine/
-logs/
-*.db
